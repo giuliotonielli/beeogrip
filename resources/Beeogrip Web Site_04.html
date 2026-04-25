@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beeogrip | Next-Gen Formulations</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+        :root {
+            --bg-color: transparent; 
+            --text-main: #f5f5f5;
+            --text-muted: #a1a1aa;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --accent: #ffffff;
+            --card-bg: rgba(24, 24, 27, 0.4); 
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #050505; 
+            color: var(--text-main);
+            line-height: 1.6;
+            font-size: 18px; 
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* --- Background Animation --- */
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background-color: #050505;
+            overflow: hidden;
+        }
+
+        .glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.5;
+            animation: float 20s infinite ease-in-out alternate;
+        }
+
+        .glow-1 {
+            width: 50vw;
+            height: 50vw;
+            background: #1a1a1a;
+            top: -10vw;
+            left: -10vw;
+        }
+
+        .glow-2 {
+            width: 40vw;
+            height: 40vw;
+            background: #222222;
+            bottom: -5vw;
+            right: -10vw;
+            animation-delay: -7s;
+        }
+
+        .glow-3 {
+            width: 45vw;
+            height: 45vw;
+            background: #111111;
+            top: 30vh;
+            left: 20vw;
+            animation-duration: 25s;
+            animation-delay: -3s;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(5vw, 5vh) scale(1.1); }
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 4rem;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            background: rgba(5, 5, 5, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            z-index: 100;
+            transition: transform 0.3s ease-in-out; 
+        }
+
+        .nav-hidden {
+            transform: translateY(-100%);
+        }
+
+        .logo {
+            font-weight: 600;
+            font-size: 1.25rem;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-main);
+            text-shadow: 0 0 8px rgba(255,255,255,0.3);
+        }
+
+        /* Layout Utility */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 4rem;
+        }
+
+        section {
+            padding: 8rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 10rem 0 8rem;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 500;
+            line-height: 1.15;
+            letter-spacing: -0.04em;
+            max-width: 900px;
+            margin-bottom: 2rem;
+        }
+
+        .hero p {
+            font-size: 1.35rem;
+            color: var(--text-muted);
+            max-width: 750px;
+            margin-bottom: 3.5rem;
+            font-weight: 300;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: #000000;
+            border: 1px solid var(--accent);
+        }
+
+        .btn-primary:hover {
+            background-color: #d4d4d8;
+            box-shadow: 0 0 15px rgba(255,255,255,0.2);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-main);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-color: var(--accent);
+        }
+
+        /* Section Headers */
+        .section-header {
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 500;
+            letter-spacing: -0.03em;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 650px;
+        }
+
+        /* Focus Grid */
+        .focus-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .focus-card {
+            border: 1px solid var(--border-color);
+            padding: 3rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            background-color: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .focus-card:hover {
+            border-color: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        .focus-number {
+            font-family: monospace;
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .focus-card h3 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .focus-card p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        /* Validation List */
+        .validation-list {
+            list-style: none;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .validation-item {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+            padding: 2.5rem 0;
+        }
+
+        .validation-item .label {
+            flex: 0 0 30%;
+            font-weight: 500;
+            font-size: 1.25rem;
+        }
+
+        .validation-item .content {
+            flex: 1;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .validation-item strong {
+            color: var(--text-main);
+        }
+
+        /* Testimonial Section */
+        .testimonial-section {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .testimonial-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .testimonial-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 2.5rem;
+            display: block;
+            border: 2px solid rgba(255,255,255,0.2);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        }
+
+        .testimonial-content blockquote {
+            font-size: 1.6rem;
+            font-weight: 300;
+            line-height: 1.5;
+            color: var(--text-main);
+            margin-bottom: 2.5rem;
+            letter-spacing: -0.01em;
+        }
+
+        .attribution strong {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+            color: var(--accent);
+        }
+
+        .attribution span {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Q&A Accordion Section */
+        .qa-container {
+            margin-top: 2rem;
+        }
+
+        details.qa-item {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        details.qa-item summary {
+            padding: 2rem 0;
+            font-size: 1.25rem;
+            font-weight: 500;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            outline: none;
+            transition: color 0.2s ease;
+        }
+
+        details.qa-item summary::-webkit-details-marker {
+            display: none;
+        }
+
+        details.qa-item summary:hover {
+            color: var(--text-muted);
+        }
+
+        details.qa-item summary::after {
+            content: '+';
+            font-size: 1.75rem;
+            font-weight: 300;
+            color: var(--text-muted);
+            transition: transform 0.3s ease;
+        }
+
+        details.qa-item[open] summary::after {
+            content: '−';
+        }
+
+        .qa-content {
+            padding-bottom: 2rem;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .qa-content strong {
+            color: var(--text-main);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .qa-content ul {
+            margin-top: 1rem;
+            padding-left: 1.5rem;
+        }
+
+        .qa-content li {
+            margin-bottom: 0.75rem;
+        }
+
+        /* Partnership Cards */
+        .partnership-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .partner-card {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 3rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .partner-card:hover {
+            border-color: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        .partner-card .tag {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .partner-card h3 {
+            font-size: 1.75rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 900px) {
+            .hero h1 { font-size: 3rem; }
+            .focus-grid, .partnership-grid { grid-template-columns: 1fr; }
+            .validation-item { flex-direction: column; gap: 1rem; }
+            .testimonial-content blockquote { font-size: 1.25rem; }
+            nav { padding: 1.5rem 2rem; }
+            .container { padding: 0 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background-animation">
+        <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
+        <div class="glow glow-3"></div>
+    </div>
+
+    <nav id="navbar">
+        <div class="logo">Beeogrip Lab</div>
+        <div class="nav-links">
+            <a href="#focus">Lab Focus</a>
+            <a href="#validation">Validation</a>
+            <a href="#mandate">Industry Mandate</a>
+            <a href="#qa">Technical Q&A</a>
+            <a href="#partners">Partnerships</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        
+        <section class="hero">
+            <h1>We enable the next generation of AgChem formulations.</h1>
+            <p>We design, develop, and validate the 70mm rain-fast biopolymer that ensures the survival of your active ingredients in real-world conditions.</p>
+            <div class="button-group">
+                <a href="#focus" class="btn btn-primary">Explore Technology</a>
+                <a href="#contact" class="btn btn-secondary">Request Dossier</a>
+            </div>
+        </section>
+
+        <section id="focus">
+            <div class="section-header">
+                <h2>Technology Focus</h2>
+                <p>Solving the operational formulation crisis: Designing and developing chemical stability for extreme real-world environments.</p>
+            </div>
+
+            <div class="focus-grid">
+                <div class="focus-card">
+                    <span class="focus-number">01</span>
+                    <h3>Extreme Wash-Off Resistance</h3>
+                    <p>Acts as a "smart shield" matrix. Locks the active ingredient to the leaf canopy, successfully resisting up to 70mm of heavy rain per single treatment without degradation.</p>
+                </div>
+                <div class="focus-card">
+                    <span class="focus-number">02</span>
+                    <h3>Zero Phytotoxicity</h3>
+                    <p>Unlike synthetic polymers, resins, or oil-based binders, Beeogrip is a 100% natural, plant-based biopolymer. It does not magnify UV heat and will never burn or stress the plant.</p>
+                </div>
+                <div class="focus-card">
+                    <span class="focus-number">03</span>
+                    <h3>Formulation Stability</h3>
+                    <p>Functions as a powerful structural stabilizer in aqueous solutions. In copper trials, it prevented the formation of nozzle-clogging precipitates for over 48 hours.</p>
+                </div>
+                <div class="focus-card">
+                    <span class="focus-number">04</span>
+                    <h3>Regulatory Compliance</h3>
+                    <p>By preventing chemical wash-off and reducing soil runoff by >50%, Beeogrip keeps your blockbuster products safely below stringent regulatory dosage caps.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="validation">
+            <div class="section-header">
+                <h2>Certified Validation</h2>
+                <p>We subject our technology to the most rigorous independent testing in the industry to ensure commercial viability and agricultural impact.</p>
+            </div>
+
+            <ul class="validation-list">
+                <li class="validation-item">
+                    <div class="label">The Eurofins Data (2025)</div>
+                    <div class="content">
+                        <strong>Proven Efficacy:</strong> Certified >50% retention of metallic copper on leaves following severe wash-off events compared to control models. Executed over 100 open-field tests in Franciacorta, Italy.
+                    </div>
+                </li>
+                <li class="validation-item">
+                    <div class="label">Broad Compatibility</div>
+                    <div class="content">
+                        Successfully tested with major systemic and contact products, including <strong>CHAMP DP</strong> and <strong>TIOVIT JET</strong> (Eurofins Certified), as well as CIDELY, ENERVIN SYSTEM, AFFIRM, and FOLPET.
+                    </div>
+                </li>
+                <li class="validation-item">
+                    <div class="label">Operational Impact</div>
+                    <div class="content">
+                        Demonstrated the ability to reduce the total number of required field treatments by over 50%, generating massive labor and diesel savings for the end-user.
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+    </div> 
+    
+    <section id="mandate" class="testimonial-section">
+        <div class="container">
+            <div class="testimonial-content">
+                
+                <img src="Fran.jpg" alt="Francesca Moretti" class="testimonial-photo">
+                
+                <blockquote>
+                    We have never seen a product with these features—resisting 70mm of rain, eliminating phytotoxicity, and cutting our tractor passes in half. This technology must be developed further and scaled by a major international company to ensure that all agricultural operators have access to this transformative product.
+                </blockquote>
+                <div class="attribution">
+                    <strong>Francesca Moretti</strong>
+                    <span>Head of Winemaking & Oenologist, Bellavista</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container"> 
+        
+        <section id="qa">
+            <div class="section-header">
+                <h2>Technical Q&A</h2>
+                <p>Anticipating the rigorous scrutiny of tier-one AgChem R&D teams. Here is the strategic breakdown of our technical data and field assumptions.</p>
+            </div>
+
+            <div class="qa-container">
+                <details class="qa-item">
+                    <summary>1. What is the chemical mechanism behind the increased adhesion?</summary>
+                    <div class="qa-content">
+                        <strong>Dual-action mechanism of amphiphilic bonding and cross-linked polymerization.</strong>
+                        As a plant-based biopolymer, it contains both hydrophobic and hydrophilic functional groups. When sprayed, the hydrophobic tails form strong Van der Waals forces with the plant's natural epicuticular wax (the leaf cuticle). Simultaneously, the hydrophilic heads hydrogen-bond with the aqueous active ingredient (e.g., Copper or Biologicals). As the water evaporates, the biopolymer cross-links into a micro-porous, elastic matrix. This "smart shield" mechanically traps the active ingredient against the leaf, allowing natural plant gas exchange while resisting the kinetic shear force of rainwater.
+                    </div>
+                </details>
+
+                <details class="qa-item">
+                    <summary>2. Is it compatible with other agricultural inputs?</summary>
+                    <div class="qa-content">
+                        <strong>Yes, highly compatible with proven data.</strong>
+                        <ul>
+                            <li><strong>The Data:</strong> Eurofins certified its performance with major contact and systemic products, including CHAMP DP (Copper), TIOVIT JET (Sulfur), CIDELY, ENERVIN SYSTEM, AFFIRM, and FOLPET.</li>
+                            <li><strong>The Science:</strong> Because Beeogrip is non-ionic (neutral electrical charge), it does not react with or lock up the active ions in complex chemical tanks. In copper trials, it prevented heavy metallic particles from dropping out of suspension and forming clogging precipitates for over 48 hours.</li>
+                            <li><em>Standard jar testing is always recommended for novel, highly alkaline, or highly acidic proprietary mixtures.</em></li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details class="qa-item">
+                    <summary>3. What is the safety profile for operators and the environment?</summary>
+                    <div class="qa-content">
+                        <strong>Unmatched Safety: 100% Safe, Organic, and Biodegradable.</strong>
+                        <ul>
+                            <li><strong>Operator Safety:</strong> Requires zero specialized PPE beyond what the active chemical tank-mix dictates. It contains no synthetic solvents, no NPEs, and no microplastics.</li>
+                            <li><strong>Environmental Profile:</strong> A massive ESG asset. Synthetic stickers can smother leaves or leave microplastic residue in the soil. Beeogrip is 100% biodegradable. Once its functional life is over, soil microbes naturally metabolize it into harmless carbon and water.</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details class="qa-item">
+                    <summary>4. What are the label / recommended application ranges?</summary>
+                    <div class="qa-content">
+                        <strong>Highly Efficient Volume-to-Volume Ratio.</strong>
+                        Based on standard high-performance biopolymer rheology, the anticipated optimal inclusion rate is 0.1% to 0.3% v/v (volume per volume) in the spray tank. For a standard vineyard spraying 500 liters of water per hectare, this requires only 0.5 to 1.5 liters of Beeogrip per hectare, depending on canopy density and weather severity.
+                    </div>
+                </details>
+
+                <details class="qa-item">
+                    <summary>5. How do they inform the estimated cost per liter / hectare?</summary>
+                    <div class="qa-content">
+                        <strong>The ROI is driven by operational savings, not just product cost.</strong>
+                        Assuming a premium market price of $15 to $25 per liter, an application of 1 L/ha costs roughly $15 to $25 per hectare. A single wash-off event costs a farmer the price of the lost active ingredient ($40–$100+/ha), plus the diesel and labor of a second tractor pass ($30–$50/ha), plus crop damage risk. Spending $20/ha to insure a $150/ha operation against 70mm of rain is an immediate, no-brainer ROI.
+                    </div>
+                </details>
+
+                <details class="qa-item">
+                    <summary>6. Which crops / countries have you tested the product on?</summary>
+                    <div class="qa-content">
+                        <strong>Extensively tested on high-value specialty crops.</strong>
+                        <ul>
+                            <li><strong>Current Validation:</strong> Grapes/Vineyards in Franciacorta, Italy. Italy is one of the most rigorously regulated agricultural environments in the EU, making this a highly credible baseline.</li>
+                            <li><strong>The Expansion Strategy:</strong> The physical mechanism of cuticle-adhesion translates directly to other broad-leaf crops. The immediate roadmap involves expanding field trials to pome fruits, citrus, and broadacre row crops across North America and LATAM.</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details class="qa-item">
+                    <summary>7. How long does the effect last on the leaf before it degrades?</summary>
+                    <div class="qa-content">
+                        <strong>Mechanical Threshold: Up to 70mm of heavy rain.</strong>
+                        <br><br>
+                        <strong>Temporal Threshold:</strong> As a natural organic compound, Beeogrip is designed to biodegrade. Under standard field conditions (exposure to UV light, heat, and leaf expansion), the matrix will maintain structural integrity for approximately 14 to 21 days. This perfectly aligns with standard 10-14 day agricultural spray intervals, ensuring protection without permanent residue build-up.
+                    </div>
+                </details>
+
+                <details class="qa-item">
+                    <summary>8. What are the crops on the label?</summary>
+                    <div class="qa-content">
+                        <strong>Initial Focus: Viticulture and High-Value Horticulture.</strong>
+                        The foundational label data is anchored in Grapes. The strategic rollout targets crops where wash-off of contact fungicides (like Copper and Sulfur) represents a massive economic liability. The label will rapidly expand to include tomatoes, potatoes, apples, and berries.
+                    </div>
+                </details>
+
+                <details class="qa-item">
+                    <summary>9. Is the current registration for Italy only?</summary>
+                    <div class="qa-content">
+                        <strong>Fast-Track Regulatory Pathway.</strong>
+                        Currently, it is compliant for use in Italy. However, because it is a 100% natural, plant-based material, it is classified as an "inert co-formulant" or "adjuvant" rather than an Active Pesticidal Ingredient. This bypasses the multi-year regulatory nightmare of registering a new chemical active, qualifying for fast-track exemptions under EU REACH and US EPA (FIFRA) guidelines.
+                    </div>
+                </details>
+
+                <details class="qa-item">
+                    <summary>10. Do you have field data showing increased yield or reduced disease?</summary>
+                    <div class="qa-content">
+                        <strong>Yes, explicitly proven through active ingredient retention.</strong>
+                        In agriculture, active ingredient retention is the leading indicator of disease control. Eurofins data certifies >50% retention of metallic copper following severe rain. Because the fungicide stayed on the leaf, disease pressure was neutralized. This is further validated by operational data: the vineyard reduced total required field treatments by over 50%, proving disease and pest damage were successfully controlled.
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <section id="partners">
+            <div class="section-header">
+                <h2>Strategic Partnerships</h2>
+                <p>We collaborate with global R&D and Formulation Strategy teams at tier-one AgChem companies to integrate and scale our technology.</p>
+            </div>
+
+            <div class="partnership-grid">
+                <div class="partner-card">
+                    <span class="tag">For Commercial Teams</span>
+                    <h3>Standalone Premium Adjuvant</h3>
+                    <p>Offer Beeogrip as a ready-to-use, high-performance tank-mix partner. Allows for the fastest market entry, enabling you to launch a "Premium Rain-Fast" defense against cheap off-patent generics.</p>
+                </div>
+                <div class="partner-card">
+                    <span class="tag">For Formulation R&D</span>
+                    <h3>Integrated Formulation Upgrade</h3>
+                    <p>Incorporate Beeogrip directly into your flagship products as a native matrix component. Protect your fragile Biological portfolios by utilizing our UV-resistant micro-climate.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" style="border-bottom: none; padding-bottom: 2rem;">
+            <div class="section-header" style="margin-bottom: 2rem;">
+                <h2>Start a Discussion</h2>
+                <p>Let's talk about how Beeogrip can protect your margins and your market access.</p>
+            </div>
+            <a href="mailto:contact@beeogrip.com" class="btn btn-primary">Contact the Lab</a>
+        </section>
+
+        <footer>
+            <div>© 2026 Beeogrip. All rights reserved.</div>
+            <div>Based in Lugano, Switzerland.</div>
+        </footer>
+
+    </div>
+
+    <script>
+        let lastScrollTop = 0;
+        const navbar = document.getElementById('navbar');
+
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                navbar.classList.add('nav-hidden');
+            } 
+            else {
+                navbar.classList.remove('nav-hidden');
+            }
+            
+            lastScrollTop = Math.max(0, scrollTop); 
+        });
+    </script>
+</body>
+</html>
